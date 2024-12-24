@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackBosphorus</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .code-section {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            z-index: 4;
+            width: 100%;
+        }
+
+        .bridge-line {
+            position: relative;
+            margin-top: 120px;
+            font-size: 10px;
+            width: 100%;
+            text-align: center;
+            height: 100px;  /* Space for the bridge */
+        }
+
+        .bridge-line span {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform-origin: bottom center;
+            padding: 0;
+            margin: 0;
+            min-width: 8px;
+            opacity: 0;
+        }
+
+        @keyframes fadeInBridge {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .code-line {
+            margin: 0;
+            padding: 0;
+            height: 1.2em;
+            white-space: pre;
+        }
+
+        .code-red {
+            color: #dc143c;
+            opacity: 0.7;
+        }
+
+        .code-white {
+            color: #ffffff;
+            opacity: 0.5;
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 2;
+            padding-top: 180px;
+            text-align: center;
+        }
+
+        .logo {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .content {
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+            animation-delay: 8s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            margin: 1rem 0;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #00ff00;
+            color: #1a1a1a;
+        }
+
+        .social-links {
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: #00ff00;
+            margin-right: 1rem;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="code-section" id="code-container"></div>
+        
+        <div class="main-content">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300">
+                    <!-- Background -->
+                    <rect width="500" height="300" fill="#1a1a1a"/>
+                    
+                    <!-- Matrix-style code background -->
+                    <g font-family="Courier New, monospace" font-size="10">
+                    </g>
+
+                    <!-- Bridge shape formed by denser code -->
+                    <g font-family="Courier New, monospace" font-size="8" opacity="0.9">
+                        <path id="bridgeCurve" d="M100,200 Q250,100 400,200" fill="none"/>
+                    </g>
+
+                    <!-- Simple Matrix glow -->
+                    <defs>
+                        <filter id="matrix-glow">
+                            <feGaussianBlur stdDeviation="2" result="blur"/>
+                            <feMerge>
+                                <feMergeNode in="blur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+
+                    <!-- Clean main title with Matrix style -->
+                    <text x="250" y="250" font-family="Courier New, monospace" font-size="40" 
+                          text-anchor="middle" fill="#00ff00" filter="url(#matrix-glow)" 
+                          font-weight="bold">H4ckB0sphorus</text>
+                    
+                    <!-- Accent elements -->
+                    <g>
+                        <!-- Outer circle of crescent -->
+                        <circle cx="419" cy="120" r="60" fill="#dc143c"/>
+                        <!-- Inner circle (slightly offset) to create crescent -->
+                        <circle cx="435" cy="120" r="50" fill="#1a1a1a"/>
+                        <!-- Star -->
+                        <path d="M480 100 
+                           L492 130 
+                           L465 112 
+                           L495 112 
+                           L468 130 Z" 
+                          fill="#dc143c"
+                          transform="rotate(-20, 480, 115)"/>
+                    </g>
+                    <line x1="-80" y1="160" x2="1200" y2="160" stroke="#ffffff" 
+                          stroke-width="1" opacity="0.5"/>
+                </svg>
+            </div>
+            
+            <div class="content">
+                <h2>Next Meetup: Coming Soon</h2>
+                <p>Join us for our inaugural meetup where we'll bring together Polish and Turkish tech professionals for an evening of networking, knowledge sharing, and community building.</p>
+                
+                <a href="#" class="button">Join Our Community</a>
+                
+                <div class="social-links">
+                    <a href="#">Meetup</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const codeLines = [
+            { text: "01001000 01000001 01000011 01001011", class: "code-white" },
+            { text: "{code: function() => bridge()}", class: "code-white" },
+            { text: "while(true) connect(PL, TR);", class: "code-white" },
+            { text: "if(hack) { buildBridge(); }", class: "code-white" },
+            { text: "class Community extends Bridge", class: "code-white" },
+            { text: "def connect_communities():", class: "code-red" },
+            { text: "async function bridge() {", class: "code-red" },
+            { text: "for each in developers:", class: "code-red" },
+            { text: "git commit -m 'unity'", class: "code-red" },
+            { text: "npm install community", class: "code-red" },
+            { text: "HACK{PL}BOSPHORUS{TR}INNOVATION_BRIDGE[connect]=>CODE()", class: "code-white" }
+        ];
+
+        const container = document.getElementById('code-container');
+        let globalDelay = 0;
+
+        async function typeWriter(element, text, isBridge = false) {
+            if (isBridge) {
+                const totalChars = text.length;
+                const bridgeWidth = 500; // Width of the bridge in pixels
+                const bridgeHeight = 80; // Maximum height of the bridge arc
+                const startX = -bridgeWidth / 2 - 20; // Start from left of center
+                
+                for (let i = 0; i < totalChars; i++) {
+                    const span = document.createElement('span');
+                    span.textContent = text[i];
+                    
+                    // Calculate position along the bridge
+                    const progress = i / (totalChars - 1); // 0 to 1
+                    const x = startX + (bridgeWidth * progress);
+                    
+                    // Parabolic curve for height (y = -ax² + b)
+                    const normalizedX = (progress * 2) - 1; // -1 to 1
+                    const y = -bridgeHeight * (normalizedX * normalizedX) + bridgeHeight - 200;
+                    
+                    // Calculate tangent angle for rotation
+                    const tangentAngle = Math.atan2(-2 * bridgeHeight * normalizedX, bridgeWidth/2) * (180/Math.PI);
+                    
+                    span.style.transform = `translate(${x}px, ${-y}px) rotate(${tangentAngle}deg)`;
+                    span.style.animation = `fadeInBridge 0.3s ease forwards`;
+                    span.style.animationDelay = `${i * 50}ms`;
+                    
+                    element.appendChild(span);
+                    await new Promise(resolve => setTimeout(resolve, 50));
+                }
+            } else {
+                for (let i = 0; i < text.length; i++) {
+                    await new Promise(resolve => setTimeout(resolve, 50));
+                    element.textContent += text[i];
+                }
+            }
+        }
+
+        async function typeCode() {
+            for (const [index, line] of codeLines.entries()) {
+                const lineElement = document.createElement('p');
+                const isBridge = index === codeLines.length - 1;
+                lineElement.className = `code-line ${line.class}${isBridge ? ' bridge-line' : ''}`;
+                container.appendChild(lineElement);
+                await typeWriter(lineElement, line.text, isBridge);
+                await new Promise(resolve => setTimeout(resolve, 200));
+            }
+        }
+
+        // Start typing when page loads
+        window.onload = typeCode;
+    </script>
+</body>
+</html>
